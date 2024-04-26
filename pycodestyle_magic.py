@@ -150,7 +150,7 @@ def pycodestyle(line, cell, auto=False):
     # remember and replace
     old_stdout = sys.stdout
     # temporary replace
-    sys.stdout = io.StringIO()
+    sys.stdout = io.TextIOWrapper()
     # store code in a file, todo unicode
     if cell.startswith(('!', '%%', '%')):
         return    
@@ -214,7 +214,7 @@ def flake8(line, cell, auto=False):
     )
   
     
-    with io.StringIO() as buf, redirect_stdout(buf):
+    with io.TextIOWrapper() as buf, redirect_stdout(buf):
         _ = flake.check_files([f.name])
         for line in buf.getvalue().splitlines():
             # on windows drive path also contains :
